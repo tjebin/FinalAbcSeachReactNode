@@ -11,7 +11,8 @@ import { setAlert } from './alert';
 // To get all flights
 export const getFlights = (formData) => async dispatch => {
     try {
-        let url = `http://localhost:5000/api/flights?from=${formData.from}&to=${formData.to}&departure=${formData.departure}&arrival=${formData.arrival}`;
+        //let url = `http://localhost:5000/api/flights?from=${formData.from}&to=${formData.to}&departure=${formData.departure}&arrival=${formData.arrival}`;
+        let url = `https://abcsearch.herokuapp.com/api/flights?from=${formData.from}&to=${formData.to}&departure=${formData.departure}&arrival=${formData.arrival}`;
         const res = await axios.get(url);
         dispatch({
             type: REMOVE_ALERT
@@ -37,7 +38,8 @@ export const addFlight = (formData) => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.post('http://localhost:5000/api/flights', formData, config);
+        //  const res = await axios.post('http://localhost:5000/api/flights', formData, config);
+        const res = await axios.post('https://abcsearch.herokuapp.com/api/flights', formData, config);
         dispatch({
             type: REMOVE_ALERT
         });
@@ -62,7 +64,8 @@ export const addFlight = (formData) => async dispatch => {
 //To remove a flight
 export const removeFlight = (flightId) => async dispatch => {
     try {
-        await axios.delete(`http://localhost:5000/api/flights/${flightId}`);
+        //await axios.delete(`http://localhost:5000/api/flights/${flightId}`);
+        await axios.delete(`https://abcsearch.herokuapp.com/api/flights/${flightId}`);
         dispatch({
             type: REMOVE_FLIGHT,
             payload: flightId // for filtering out

@@ -13,7 +13,8 @@ export const addContact = (formData) => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.post('http://localhost:5000/api/contacts', formData, config);
+        //const res = await axios.post('http://localhost:5000/api/contacts', formData, config);
+        const res = await axios.post('https://abcsearch.herokuapp.com/api/contacts', formData, config);
         dispatch({
             type: ADD_CONTACT,
             payload: res.data

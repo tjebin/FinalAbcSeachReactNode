@@ -12,8 +12,10 @@ import axios from 'axios';
 import { setAlert } from './alert';
 
 export const getCurrentProfile = () => async dispatch => {
+
     try {
-        const res = await axios.get('http://localhost:5000/api/profile/me');
+        //const res = await axios.get('http://localhost:5000/api/profile/me');
+        const res = await axios.get('https://abcsearch.herokuapp.com/api/profile/me');
         dispatch({
             type: GET_PROFILE,
             payload: res.data // to get all  Profiles
@@ -35,7 +37,8 @@ export const createProfile = (formData, history, edit = false) => async dispatch
             }
         }
 
-        const res = await axios.post('http://localhost:5000/api/profile', formData, config);
+        //const res = await axios.post('http://localhost:5000/api/profile', formData, config);
+        const res = await axios.post('https://abcsearch.herokuapp.com/api/profile', formData, config);
         dispatch({
             type: GET_PROFILE,
             payload: res.data // to get all  Profiles
@@ -67,7 +70,10 @@ export const addExperience = (formData, history) => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.put('http://localhost:5000/api/profile/experience', formData, config);
+
+        //const res = await axios.put('http://localhost:5000/api/profile/experience', formData, config);
+        const res = await axios.put('https://abcsearch.herokuapp.com/api/profile/experience', formData, config);
+
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data // to get all  Profiles
@@ -96,7 +102,10 @@ export const deleteExperience = id => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.delete(`http://localhost:5000/api/profile/experience/${id})`, config);
+
+        // const res = await axios.delete(`http://localhost:5000/api/profile/experience/${id})`, config);
+        const res = await axios.delete(`https://abcsearch.herokuapp.com/api/profile/experience/${id})`, config);
+
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data // to get all  Profiles
@@ -119,7 +128,10 @@ export const addEducation = (formData, history) => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.put('http://localhost:5000/api/profile/education', formData, config);
+
+        // const res = await axios.put('http://localhost:5000/api/profile/education', formData, config);
+        const res = await axios.put('https://abcsearch.herokuapp.com/api/profile/education', formData, config);
+
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data // to get all  Profiles
@@ -144,7 +156,10 @@ export const deleteEducation = id => async dispatch => {
                 'Content-Type': 'application/json'
             }
         }
-        const res = await axios.delete(`http://localhost:5000/api/profile/education/${id})`, config);
+
+        // const res = await axios.delete(`http://localhost:5000/api/profile/education/${id})`, config);
+
+        const res = await axios.delete(` https://abcsearch.herokuapp.com/api/profile/education/${id})`, config);
         dispatch({
             type: UPDATE_PROFILE,
             payload: res.data // to get all  Profiles
@@ -164,7 +179,7 @@ export const deleteEducation = id => async dispatch => {
 export const deleteAccount = () => async dispatch => {
     if (window.confirm('Are you sure you want to delete this account completely? This can not be undone ')) {
         try {
-            await axios.delete(`http://localhost:5000/api/profile/`);
+            await axios.delete(`https://abcsearch.herokuapp.com/api/profile/`);
             dispatch({ type: CLEAR_PROFILE });
             dispatch({ type: ACCOUNT_DELETED });
             dispatch(setAlert('Your account has been permanantly deleted!!'));
@@ -181,7 +196,7 @@ export const deleteAccount = () => async dispatch => {
 export const getProfiles = () => async dispatch => {
     dispatch({ type: CLEAR_PROFILE });
     try {
-        const res = await axios.get('http://localhost:5000/api/profile');
+        const res = await axios.get('https://abcsearch.herokuapp.com/api/profile');
         dispatch({
             type: GET_PROFILES,
             payload: res.data // to get all  Profiles
@@ -197,7 +212,7 @@ export const getProfiles = () => async dispatch => {
 // get profile by id
 export const getProfileById = userId => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:5000/api/profile/user/${userId}`);
+        const res = await axios.get(`https://abcsearch.herokuapp.com/api/profile/user/${userId}`);
         dispatch({
             type: GET_PROFILE,
             payload: res.data // to get all  Profiles
@@ -213,7 +228,7 @@ export const getProfileById = userId => async dispatch => {
 //Get githubrepos
 export const getGithubRepos = username => async dispatch => {
     try {
-        const res = await axios.get(`http://localhost:5000/api/profile/github/${username}`);
+        const res = await axios.get(`https://abcsearch.herokuapp.com/api/profile/github/${username}`);
         dispatch({
             type: GET_REPOS,
             payload: res.data // to get all  Repos
