@@ -231,7 +231,8 @@ ul.options li.option-active {
 .flightsContainer {
   background-color: black;
   overflow: scroll;
-  height: 500px;
+  height: auto;
+  padding: 0px;
 }
 
 .alertBox{

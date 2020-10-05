@@ -11,13 +11,13 @@ import { setAlert } from './alert';
 // To get all flights
 export const getFlights = (formData) => async dispatch => {
     try {
-        //let url = `http://localhost:5000/api/flights?from=${formData.from}&to=${formData.to}&departure=${formData.departure}&arrival=${formData.arrival}`;
+        // let url = `http://localhost:5000/api/flights?from=${formData.from}&to=${formData.to}&departure=${formData.departure}&arrival=${formData.arrival}`;
         let url = `https://abcsearch.herokuapp.com/api/flights?from=${formData.from}&to=${formData.to}&departure=${formData.departure}&arrival=${formData.arrival}`;
         const res = await axios.get(url);
         dispatch({
             type: REMOVE_ALERT
         });
-
+        alert(" res length " + res.data.length);
         dispatch({
             type: GET_FLIGHTS,
             payload: res.data // to get all flights

@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { addContact } from '../../../actions/contact';
+import { getContacts } from '../../../actions/contact';
 import store from '../../../store';
 import { REMOVE_ALERT } from '../../../actions/types';
 import Alert from '../../../components/layout/Alert';
+import ContactItem from './ContactItem';
 
-const Contact = ({ addContact, history }) => {
-    useEffect(() => {
-        store.dispatch({
-            type: REMOVE_ALERT
-        })
-    });
+const Contact = ({ getContacts, addContact, history, loading, contacts }) => {
+    const [open, setOpen] = useState(false);
 
     var [formData, setFormData] = useState({
         firstName: '',
@@ -38,6 +36,12 @@ const Contact = ({ addContact, history }) => {
             setFormData({ ...formData, [e.target.name]: e.target.value });
         }
     }
+
+    useEffect(() => {
+        store.dispatch({
+            type: REMOVE_ALERT
+        })
+    });
 
     return (
         <Fragment>
@@ -107,15 +111,43 @@ const Contact = ({ addContact, history }) => {
                     </div>
                     <input type="submit" className="btn btn-primary my-1" />
                 </form>
+                <button
+                    type="button"
+                    class="btn btn-info"
+                    onClick={e => { getContacts(); setOpen(!open) }}>
+                    {!open && (<div>Show All Messages</div>)}
+                    {open && (<div>Hide Messages</div>)}
+                </button>
+                <div className="my-1">
+                    {!loading && open && contacts && contacts.length > 0 && (
+                        <div className="flightsContainer bg-white pp-1">
+                            <Fragment>
+                                {contacts.map(contact => (
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <ContactItem key={contact._id} contact={contact} />
+                                        </div>
+                                    </div>
+                                )
+                                )}
+                            </Fragment>
+                        </div>
+                    )}
+                </div>
                 <Alert />
             </div>
-
         </Fragment >
     );
 };
 
 Contact.propTypes = {
-    addContact: PropTypes.func.isRequired
+    addContact: PropTypes.func.isRequired,
+    getContacts: PropTypes.func.isRequired
 };
 
-export default connect(null, { addContact })(withRouter(Contact));
+const mapStateToProps = state => ({
+    contacts: state.contact.contacts,
+    loading: state.contact.loading
+});
+
+export default connect(mapStateToProps, { getContacts, addContact })(withRouter(Contact));

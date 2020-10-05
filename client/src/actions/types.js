@@ -28,6 +28,8 @@ export const ADD_FLIGHT = 'ADD_FLIGHT';
 export const REMOVE_FLIGHT = 'REMOVE_FLIGHT';
 export const ADD_CONTACT = 'ADD_CONTACT';
 export const CONTACT_ERROR = 'CONTACT_ERROR';
+export const GET_CONTACTS = 'GET_CONTACTS';
+export const REMOVE_CONTACT = 'REMOVE_CONTACT';
 
 
 

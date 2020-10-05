@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 import { getFlights } from '../../actions/flight';
 import FlightItem from './FlightItem';
 import Alert from '../layout/Alert';
+import { REMOVE_ALERT } from '../../actions/types';
+import store from '../../store';
 
 const Flights = ({ getFlights, flights, loading }) => {
     const [formData, setFormData] = useState({
@@ -25,6 +27,12 @@ const Flights = ({ getFlights, flights, loading }) => {
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
+
+    useEffect(() => {
+        store.dispatch({
+            type: REMOVE_ALERT
+        })
+    });
     return (
         <Fragment>
             <div className="container">
@@ -104,7 +112,6 @@ const Flights = ({ getFlights, flights, loading }) => {
                             )}
                         </div>
                     )}
-
                 </div>
                 <Alert />
             </div>
